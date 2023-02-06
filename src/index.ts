@@ -1,15 +1,20 @@
 import fastify from "fastify";
 
 const homeRoute = require("./routes/homeRoute")
+const todoRoute = require("./routes/todoRoute")
 
-const Fastify = fastify({logger: true})
+const server = fastify({logger: true})
 
-Fastify.register(homeRoute, {prefix: "/api/v1"})
+server.register(require('@fastify/formbody') )
 
-Fastify.listen({ port: 3000 }, function (err: any, address: string) {
+server.register(homeRoute, {prefix: "/api/v1"})
+server.register(todoRoute, {prefix: "/api/v1/todos"})
+
+server.listen({ port: 3000 }, function (err: any, address: string) {
   if (err) {
-    Fastify.log.error(err)
+    server.log.error(err)
+    process.exit(1)
   }
   // Server is now listening on ${address
-  Fastify.log.info(`Server is listening on ${address}`)
+  server.log.info(`Server is listening on ${address}`)
 })
