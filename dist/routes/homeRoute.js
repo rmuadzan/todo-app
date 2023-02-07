@@ -16,4 +16,4 @@ function homeRoute(fastify) {
         }));
     });
 }
-module.exports = homeRoute;
+exports.default = homeRoute;

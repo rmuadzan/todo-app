@@ -3,13 +3,19 @@ lockfileVersion: 5.4
 specifiers:
   '@fastify/formbody': ^7.4.0
   '@fastify/multipart': ^7.4.0
+  '@fastify/type-provider-typebox': ^2.4.0
+  '@sinclair/typebox': ^0.25.21
   '@types/node': ^18.11.19
   fastify: ^4.12.0
+  kysely: ^0.23.4
 
 dependencies:
   '@fastify/formbody': 7.4.0
   '@fastify/multipart': 7.4.0
+  '@fastify/type-provider-typebox': 2.4.0_7tm3ucp7md5tt35ifascqc3rhq
+  '@sinclair/typebox': 0.25.21
   fastify: 4.12.0
+  kysely: 0.23.4
 
 devDependencies:
   '@types/node': 18.11.19
@@ -63,6 +69,20 @@ packages:
       hexoid: 1.0.0
       secure-json-parse: 2.7.0
       stream-wormhole: 1.1.0
+    dev: false
+
+  /@fastify/type-provider-typebox/2.4.0_7tm3ucp7md5tt35ifascqc3rhq:
+    resolution: {integrity: sha512-dP8KnpfyBD1FT1UxNWCRqSpKG69xYAK53q6MqUjuwYL7xvogXBbH/tpAMc1kZkKmgAHPT0migy9DaYtnkTbIIQ==}
+    peerDependencies:
+      '@sinclair/typebox': ^0.25.9
+      fastify: ^4.0.0
+    dependencies:
+      '@sinclair/typebox': 0.25.21
+      fastify: 4.12.0
+    dev: false
+
+  /@sinclair/typebox/0.25.21:
+    resolution: {integrity: sha512-gFukHN4t8K4+wVC+ECqeqwzBDeFeTzBXroBTqE6vcWrQGbEUpHO7LYdG0f4xnvYq4VOEwITSlHlp0JBAIFMS/g==}
     dev: false
 
   /@types/node/18.11.19:
@@ -261,6 +281,11 @@ packages:
 
   /json-schema-traverse/1.0.0:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
+    dev: false
+
+  /kysely/0.23.4:
+    resolution: {integrity: sha512-3icLnj1fahUtZsP9zzOvF4DcdhekGsLX4ZaoBaIz0ZeHegyRDdbwpJD7zezAJ+KwQZNDeKchel6MikFNLsSZIA==}
+    engines: {node: '>=14.0.0'}
     dev: false
 
   /light-my-request/5.8.0:

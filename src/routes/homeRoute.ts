@@ -6,4 +6,4 @@ async function homeRoute(fastify: FastifyInstance) {
   })
 }
 
-module.exports = homeRoute
+export default homeRoute

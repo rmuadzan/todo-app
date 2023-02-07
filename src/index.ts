@@ -1,9 +1,9 @@
 import fastify from "fastify";
+import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
+import homeRoute from "./routes/homeRoute";
+import todoRoute from "./routes/todoRoute";
 
-const homeRoute = require("./routes/homeRoute")
-const todoRoute = require("./routes/todoRoute")
-
-const server = fastify({logger: true})
+const server = fastify({logger: true}).withTypeProvider<TypeBoxTypeProvider>()
 
 server.register(require('@fastify/formbody') )
 
@@ -15,6 +15,5 @@ server.listen({ port: 3000 }, function (err: any, address: string) {
     server.log.error(err)
     process.exit(1)
   }
-  // Server is now listening on ${address
   server.log.info(`Server is listening on ${address}`)
 })
