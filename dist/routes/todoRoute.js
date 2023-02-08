@@ -10,13 +10,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const todoController_1 = require("../controllers/todoController");
+const todoSchema_1 = require("../schema/todoSchema");
 function todoRoute(fastify) {
     return __awaiter(this, void 0, void 0, function* () {
-        fastify.get("/", todoController_1.getAllTodosHandler);
-        fastify.post("/", todoController_1.craeteTodoHandler);
-        fastify.get("/:id", todoController_1.getSingleTodoHandler);
-        fastify.put("/:id", todoController_1.updateSingleTodoHandler);
-        fastify.delete("/:id", todoController_1.deleteSingleTodoHandler);
+        fastify.get("/", {
+            schema: {
+                response: {
+                    200: todoSchema_1.MultipleTodosResponse
+                }
+            }
+        }, todoController_1.getAllTodosHandler);
+        fastify.post("/", {
+            schema: {
+                body: todoSchema_1.TodoBody,
+                response: {
+                    201: todoSchema_1.SingleTodoResponse
+                }
+            }
+        }, todoController_1.craeteTodoHandler);
+        fastify.get("/:id", {
+            schema: {
+                params: todoSchema_1.TodoParams,
+                response: {
+                    200: todoSchema_1.SingleTodoResponse
+                }
+            }
+        }, todoController_1.getSingleTodoHandler);
+        fastify.put("/:id", {
+            schema: {
+                params: todoSchema_1.TodoParams,
+                body: todoSchema_1.TodoBody,
+                response: {
+                    200: todoSchema_1.SingleTodoResponse
+                }
+            }
+        }, todoController_1.updateSingleTodoHandler);
+        fastify.delete("/:id", {
+            schema: {
+                params: todoSchema_1.TodoParams
+            }
+        }, todoController_1.deleteSingleTodoHandler);
     });
 }
 exports.default = todoRoute;

@@ -41,7 +41,7 @@ export const craeteTodoHandler = async (request: FastifyRequest<{Body: typeof To
 }
 
 export const getSingleTodoHandler = async (request: FastifyRequest<{Params: typeof TodoParams}>, reply: FastifyReply) => {
-  const id = parseInt(request.params.id)
+  const id = request.params.id
 
   if (id === 1) {
     reply 
@@ -73,6 +73,8 @@ export const getSingleTodoHandler = async (request: FastifyRequest<{Params: type
 }
 
 export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: typeof TodoBody, Params: typeof TodoParams}>, reply: FastifyReply) => {
+  const id = request.params.id
+
   reply
   .code(200)
   .header('Content-Type', 'application/json; charset=utf-8')
@@ -88,6 +90,8 @@ export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: typ
 }
 
 export const deleteSingleTodoHandler = async (request: FastifyRequest<{Params: typeof TodoParams}>, reply: FastifyReply) => {
+  const id = request.params.id
+
   reply
     .code(204)
 }

@@ -16,7 +16,7 @@ const getAllTodosHandler = (request, reply) => __awaiter(void 0, void 0, void 0,
         .header('Content-Type', 'application/json; charset=utf-8')
         .send({
         status: "success",
-        results: 2,
+        result: 2,
         data: [
             {
                 id: 1,
@@ -50,7 +50,7 @@ const craeteTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, 
 });
 exports.craeteTodoHandler = craeteTodoHandler;
 const getSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = parseInt(request.params.id);
+    const id = request.params.id;
     if (id === 1) {
         reply
             .code(200)
@@ -82,6 +82,7 @@ const getSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 
 });
 exports.getSingleTodoHandler = getSingleTodoHandler;
 const updateSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = request.params.id;
     reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -97,6 +98,7 @@ const updateSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, vo
 });
 exports.updateSingleTodoHandler = updateSingleTodoHandler;
 const deleteSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = request.params.id;
     reply
         .code(204);
 });
