@@ -7,7 +7,7 @@ export const TodoParams = Type.Object({
 export const TodoBody = Type.Object({
   title: Type.String(),
   description: Type.String(),
-  isDone: Type.Boolean()
+  is_done: Type.Boolean()
 })
 
 export const SingleTodoResponse = Type.Object({
@@ -16,7 +16,7 @@ export const SingleTodoResponse = Type.Object({
     id: Type.Number(),
     title: Type.String(),
     description: Type.String(),
-    isDone: Type.Boolean()
+    is_done: Type.Boolean()
   })
 })
 
@@ -27,6 +27,6 @@ export const MultipleTodosResponse = Type.Object({
     id: Type.Number(),
     title: Type.String(),
     description: Type.String(),
-    isDone: Type.Boolean()
+    is_done: Type.Boolean()
   }))
 })

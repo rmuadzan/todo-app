@@ -8,7 +8,7 @@ exports.TodoParams = typebox_1.Type.Object({
 exports.TodoBody = typebox_1.Type.Object({
     title: typebox_1.Type.String(),
     description: typebox_1.Type.String(),
-    isDone: typebox_1.Type.Boolean()
+    is_done: typebox_1.Type.Boolean()
 });
 exports.SingleTodoResponse = typebox_1.Type.Object({
     status: typebox_1.Type.String(),
