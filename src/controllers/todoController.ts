@@ -1,6 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify"
-import { IUserRequest, IParams } from "../interfaces"
-import { TodoType } from "../schema/todoSchema"
+import { TodoBody, TodoParams } from "../schema/todoSchema"
 
 export const getAllTodosHandler = async (request: FastifyRequest, reply: FastifyReply) => {
   reply 
@@ -8,7 +7,7 @@ export const getAllTodosHandler = async (request: FastifyRequest, reply: Fastify
     .header('Content-Type', 'application/json; charset=utf-8')
     .send({
       status: "success",
-      results: 2,
+      result: 2,
       data: [
         {
         id: 1,
@@ -26,7 +25,7 @@ export const getAllTodosHandler = async (request: FastifyRequest, reply: Fastify
     })
 }
 
-export const craeteTodoHandler = async (request: FastifyRequest<{Body: TodoType}>, reply: FastifyReply) => {
+export const craeteTodoHandler = async (request: FastifyRequest<{Body: typeof TodoBody}>, reply: FastifyReply) => {
   reply
     .code(201)
     .header('Content-Type', 'application/json; charset=utf-8')
@@ -41,7 +40,7 @@ export const craeteTodoHandler = async (request: FastifyRequest<{Body: TodoType}
     })
 }
 
-export const getSingleTodoHandler = async (request: FastifyRequest<{Params: IParams}>, reply: FastifyReply) => {
+export const getSingleTodoHandler = async (request: FastifyRequest<{Params: typeof TodoParams}>, reply: FastifyReply) => {
   const id = parseInt(request.params.id)
 
   if (id === 1) {
@@ -73,7 +72,7 @@ export const getSingleTodoHandler = async (request: FastifyRequest<{Params: IPar
   }
 }
 
-export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: TodoType, Params: IParams}>, reply: FastifyReply) => {
+export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: typeof TodoBody, Params: typeof TodoParams}>, reply: FastifyReply) => {
   reply
   .code(200)
   .header('Content-Type', 'application/json; charset=utf-8')
@@ -88,7 +87,7 @@ export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: Tod
   })
 }
 
-export const deleteSingleTodoHandler = async (request: FastifyRequest<{Params: IParams}>, reply: FastifyReply) => {
+export const deleteSingleTodoHandler = async (request: FastifyRequest<{Params: typeof TodoParams}>, reply: FastifyReply) => {
   reply
     .code(204)
 }

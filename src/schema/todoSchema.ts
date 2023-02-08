@@ -1,10 +1,32 @@
 import { Static, Type } from '@sinclair/typebox'
 
-export const Todo = Type.Object({
-  id: Type.Number(),
+export const TodoParams = Type.Object({
+  id: Type.Number()
+})
+
+export const TodoBody = Type.Object({
   title: Type.String(),
   description: Type.String(),
   isDone: Type.Boolean()
 })
 
-export type TodoType = Static<typeof Todo>
+export const SingleTodoResponse = Type.Object({
+  status: Type.String(),
+  data: Type.Object({
+    id: Type.Number(),
+    title: Type.String(),
+    description: Type.String(),
+    isDone: Type.Boolean()
+  })
+})
+
+export const MultipleTodosResponse = Type.Object({
+  status: Type.String(),
+  result: Type.Number(),
+  data: Type.Array(Type.Object({
+    id: Type.Number(),
+    title: Type.String(),
+    description: Type.String(),
+    isDone: Type.Boolean()
+  }))
+})
