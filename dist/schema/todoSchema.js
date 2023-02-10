@@ -16,7 +16,7 @@ exports.SingleTodoResponse = typebox_1.Type.Object({
         id: typebox_1.Type.Number(),
         title: typebox_1.Type.String(),
         description: typebox_1.Type.String(),
-        isDone: typebox_1.Type.Boolean()
+        is_done: typebox_1.Type.Boolean()
     })
 });
 exports.MultipleTodosResponse = typebox_1.Type.Object({
@@ -26,6 +26,6 @@ exports.MultipleTodosResponse = typebox_1.Type.Object({
         id: typebox_1.Type.Number(),
         title: typebox_1.Type.String(),
         description: typebox_1.Type.String(),
-        isDone: typebox_1.Type.Boolean()
+        is_done: typebox_1.Type.Boolean()
     }))
 });
