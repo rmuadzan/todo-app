@@ -1,13 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify"
 import { TodoBody, TodoParams } from "../schema/todoSchema"
 import db from "../db/connect"
+import { createTodo, deleteTodo, findAllTodos, findTodo, updateTodo } from "../services/todoService"
 
 export const getAllTodosHandler = async (request: FastifyRequest, reply: FastifyReply) => {
-  const result = await db
-    .selectFrom('todo')
-    .selectAll()
-    .orderBy('id')
-    .execute()
+  const result = await findAllTodos()
 
   reply 
     .code(200)
@@ -20,16 +17,7 @@ export const getAllTodosHandler = async (request: FastifyRequest, reply: Fastify
 }
 
 export const craeteTodoHandler = async (request: FastifyRequest<{Body: typeof TodoBody}>, reply: FastifyReply) => {
-  const result = await db 
-    .insertInto('todo')
-    .values({
-      title: request.body.title!,
-      description: request.body.description!,
-      is_done: request.body.is_done!,
-      slug: 'gfsdfbvddfvdb'
-    })
-    .returningAll()
-    .executeTakeFirst()
+  const result = await createTodo(request.body)
 
   reply
     .code(201)
@@ -43,11 +31,7 @@ export const craeteTodoHandler = async (request: FastifyRequest<{Body: typeof To
 export const getSingleTodoHandler = async (request: FastifyRequest<{Params: typeof TodoParams}>, reply: FastifyReply) => {
   const id = request.params.id
 
-  const result = await db
-    .selectFrom('todo')
-    .selectAll()
-    .where('id', '=', id)
-    .executeTakeFirst()
+  const result = await findTodo(id)
 
   reply 
   .code(200)
@@ -60,14 +44,8 @@ export const getSingleTodoHandler = async (request: FastifyRequest<{Params: type
 
 export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: typeof TodoBody, Params: typeof TodoParams}>, reply: FastifyReply) => {
   const id = request.params.id
-  console.log(id)
 
-  const result = await db 
-    .updateTable('todo')
-    .set(request.body)
-    .where('id', '=', id)
-    .returningAll()
-    .executeTakeFirst()
+  const result = await updateTodo(id, request.body)
 
   reply
   .code(200)
@@ -81,10 +59,7 @@ export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: typ
 export const deleteSingleTodoHandler = async (request: FastifyRequest<{Params: typeof TodoParams}>, reply: FastifyReply) => {
   const id = request.params.id
 
-  await db
-    .deleteFrom('todo')
-    .where('id', '=', id)
-    .execute()
+  deleteTodo(id)
 
   reply
     .code(204)

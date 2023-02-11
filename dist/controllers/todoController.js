@@ -8,18 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteSingleTodoHandler = exports.updateSingleTodoHandler = exports.getSingleTodoHandler = exports.craeteTodoHandler = exports.getAllTodosHandler = void 0;
-const connect_1 = __importDefault(require("../db/connect"));
+const todoService_1 = require("../services/todoService");
 const getAllTodosHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield connect_1.default
-        .selectFrom('todo')
-        .selectAll()
-        .orderBy('id')
-        .execute();
+    const result = yield (0, todoService_1.findAllTodos)();
     reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -31,16 +24,7 @@ const getAllTodosHandler = (request, reply) => __awaiter(void 0, void 0, void 0,
 });
 exports.getAllTodosHandler = getAllTodosHandler;
 const craeteTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield connect_1.default
-        .insertInto('todo')
-        .values({
-        title: request.body.title,
-        description: request.body.description,
-        is_done: request.body.is_done,
-        slug: 'gfsdfbvddfvdb'
-    })
-        .returningAll()
-        .executeTakeFirst();
+    const result = yield (0, todoService_1.createTodo)(request.body);
     reply
         .code(201)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -52,11 +36,7 @@ const craeteTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, 
 exports.craeteTodoHandler = craeteTodoHandler;
 const getSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     const id = request.params.id;
-    const result = yield connect_1.default
-        .selectFrom('todo')
-        .selectAll()
-        .where('id', '=', id)
-        .executeTakeFirst();
+    const result = yield (0, todoService_1.findTodo)(id);
     reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -68,13 +48,7 @@ const getSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 
 exports.getSingleTodoHandler = getSingleTodoHandler;
 const updateSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     const id = request.params.id;
-    console.log(id);
-    const result = yield connect_1.default
-        .updateTable('todo')
-        .set(request.body)
-        .where('id', '=', id)
-        .returningAll()
-        .executeTakeFirst();
+    const result = yield (0, todoService_1.updateTodo)(id, request.body);
     reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -86,10 +60,7 @@ const updateSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, vo
 exports.updateSingleTodoHandler = updateSingleTodoHandler;
 const deleteSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     const id = request.params.id;
-    yield connect_1.default
-        .deleteFrom('todo')
-        .where('id', '=', id)
-        .execute();
+    (0, todoService_1.deleteTodo)(id);
     reply
         .code(204);
 });
