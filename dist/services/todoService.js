@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTodo = exports.updateTodo = exports.findTodo = exports.createTodo = exports.findAllTodos = void 0;
 const connect_1 = __importDefault(require("../db/connect"));
+const helpers_1 = require("../helpers");
 function findAllTodos() {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield connect_1.default
@@ -33,7 +34,7 @@ function createTodo(body) {
             title: body.title,
             description: body.description,
             is_done: body.is_done,
-            slug: 'dsgdfhgjhklkjhgf'
+            slug: (0, helpers_1.convertStringToSlugFormat)(body.title)
         })
             .returningAll()
             .executeTakeFirst();
@@ -54,6 +55,7 @@ function findTodo(id) {
 exports.findTodo = findTodo;
 function updateTodo(id, body) {
     return __awaiter(this, void 0, void 0, function* () {
+        body.slug = (0, helpers_1.convertStringToSlugFormat)(body.title);
         const result = yield connect_1.default
             .updateTable('todo')
             .set(body)

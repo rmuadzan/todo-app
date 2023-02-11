@@ -11,6 +11,7 @@ specifiers:
   fastify: ^4.12.0
   kysely: ^0.23.4
   pg: ^8.9.0
+  slugify: ^1.6.5
 
 dependencies:
   '@fastify/formbody': 7.4.0
@@ -21,6 +22,7 @@ dependencies:
   fastify: 4.12.0
   kysely: 0.23.4
   pg: 8.9.0
+  slugify: 1.6.5
 
 devDependencies:
   '@types/node': 18.11.19
@@ -529,6 +531,11 @@ packages:
 
   /set-cookie-parser/2.5.1:
     resolution: {integrity: sha512-1jeBGaKNGdEq4FgIrORu/N570dwoPYio8lSoYLWmX7sQ//0JY08Xh9o5pBcgmHQ/MbsYp/aZnOe1s1lIsbLprQ==}
+    dev: false
+
+  /slugify/1.6.5:
+    resolution: {integrity: sha512-8mo9bslnBO3tr5PEVFzMPIWwWnipGS0xVbYf65zxDqfNwmzYn1LpiKNrR6DlClusuvo+hDHd1zKpmfAe83NQSQ==}
+    engines: {node: '>=8.0.0'}
     dev: false
 
   /sonic-boom/3.2.1:

@@ -1,5 +1,7 @@
+import slugify from "slugify"
 import db from "../db/connect"
 import { TodoBody } from "../schema/todoSchema"
+import { convertStringToSlugFormat } from "../helpers"
 
 export async function findAllTodos() {
   const result = await db
@@ -18,7 +20,7 @@ export async function createTodo(body: typeof TodoBody) {
       title: body.title!,
       description: body.description!,
       is_done: body.is_done!,
-      slug: 'dsgdfhgjhklkjhgf'
+      slug: convertStringToSlugFormat(body.title!)
     })
     .returningAll()
     .executeTakeFirst()
@@ -37,6 +39,8 @@ export async function findTodo(id: number) {
 }
 
 export async function updateTodo(id: number, body: typeof TodoBody) {
+  body.slug = convertStringToSlugFormat(body.title!)
+  
   const result = await db 
   .updateTable('todo')
   .set(body)
