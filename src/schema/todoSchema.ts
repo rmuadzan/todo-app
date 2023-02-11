@@ -1,4 +1,12 @@
-import { Static, Type } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+
+export const TodoSchema = Type.Object({
+  id: Type.Number(),
+  title: Type.String(),
+  description: Type.String(),
+  is_done: Type.Boolean(),
+  slug: Type.String()
+})
 
 export const TodoParams = Type.Object({
   id: Type.Number()
