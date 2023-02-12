@@ -20,7 +20,7 @@ async function todoRoute(fastify: FastifyInstance) {
     }
   }, craeteTodoHandler)
 
-  fastify.get("/:id", {
+  fastify.get("/:slug", {
     schema: {
       params: TodoParams,
       response: {
@@ -29,7 +29,7 @@ async function todoRoute(fastify: FastifyInstance) {
     }
   } , getSingleTodoHandler)
 
-  fastify.put("/:id", {
+  fastify.put("/:slug", {
     schema: {
       params: TodoParams,
       body: TodoBody,
@@ -39,7 +39,7 @@ async function todoRoute(fastify: FastifyInstance) {
     }
   } , updateSingleTodoHandler)
 
-  fastify.delete("/:id",{
+  fastify.delete("/:slug",{
     schema: {
       params: TodoParams
     }

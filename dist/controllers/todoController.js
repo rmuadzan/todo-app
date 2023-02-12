@@ -35,8 +35,8 @@ const craeteTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, 
 });
 exports.craeteTodoHandler = craeteTodoHandler;
 const getSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = request.params.id;
-    const result = yield (0, todoService_1.findTodo)(id);
+    const slug = request.params.slug;
+    const result = yield (0, todoService_1.findTodo)(slug);
     reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -47,8 +47,8 @@ const getSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 
 });
 exports.getSingleTodoHandler = getSingleTodoHandler;
 const updateSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = request.params.id;
-    const result = yield (0, todoService_1.updateTodo)(id, request.body);
+    const slug = request.params.slug;
+    const result = yield (0, todoService_1.updateTodo)(slug, request.body);
     reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -59,8 +59,8 @@ const updateSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, vo
 });
 exports.updateSingleTodoHandler = updateSingleTodoHandler;
 const deleteSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = request.params.id;
-    (0, todoService_1.deleteTodo)(id);
+    const slug = request.params.slug;
+    (0, todoService_1.deleteTodo)(slug);
     reply
         .code(204);
 });

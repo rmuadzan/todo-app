@@ -1,6 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify"
 import { TodoBody, TodoParams } from "../schema/todoSchema"
-import db from "../db/connect"
 import { createTodo, deleteTodo, findAllTodos, findTodo, updateTodo } from "../services/todoService"
 
 export const getAllTodosHandler = async (request: FastifyRequest, reply: FastifyReply) => {
@@ -29,9 +28,9 @@ export const craeteTodoHandler = async (request: FastifyRequest<{Body: typeof To
 }
 
 export const getSingleTodoHandler = async (request: FastifyRequest<{Params: typeof TodoParams}>, reply: FastifyReply) => {
-  const id = request.params.id
+  const slug = request.params.slug
 
-  const result = await findTodo(id)
+  const result = await findTodo(slug)
 
   reply 
   .code(200)
@@ -43,9 +42,9 @@ export const getSingleTodoHandler = async (request: FastifyRequest<{Params: type
 }
 
 export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: typeof TodoBody, Params: typeof TodoParams}>, reply: FastifyReply) => {
-  const id = request.params.id
+  const slug = request.params.slug
 
-  const result = await updateTodo(id, request.body)
+  const result = await updateTodo(slug, request.body)
 
   reply
   .code(200)
@@ -57,9 +56,9 @@ export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: typ
 }
 
 export const deleteSingleTodoHandler = async (request: FastifyRequest<{Params: typeof TodoParams}>, reply: FastifyReply) => {
-  const id = request.params.id
+  const slug = request.params.slug
 
-  deleteTodo(id)
+  deleteTodo(slug)
 
   reply
     .code(204)

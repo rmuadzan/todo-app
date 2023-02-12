@@ -28,7 +28,7 @@ function todoRoute(fastify) {
                 }
             }
         }, todoController_1.craeteTodoHandler);
-        fastify.get("/:id", {
+        fastify.get("/:slug", {
             schema: {
                 params: todoSchema_1.TodoParams,
                 response: {
@@ -36,7 +36,7 @@ function todoRoute(fastify) {
                 }
             }
         }, todoController_1.getSingleTodoHandler);
-        fastify.put("/:id", {
+        fastify.put("/:slug", {
             schema: {
                 params: todoSchema_1.TodoParams,
                 body: todoSchema_1.TodoBody,
@@ -45,7 +45,7 @@ function todoRoute(fastify) {
                 }
             }
         }, todoController_1.updateSingleTodoHandler);
-        fastify.delete("/:id", {
+        fastify.delete("/:slug", {
             schema: {
                 params: todoSchema_1.TodoParams
             }

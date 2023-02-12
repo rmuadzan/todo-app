@@ -42,35 +42,35 @@ function createTodo(body) {
     });
 }
 exports.createTodo = createTodo;
-function findTodo(id) {
+function findTodo(slug) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield connect_1.default
             .selectFrom('todo')
             .selectAll()
-            .where('id', '=', id)
+            .where('slug', '=', slug)
             .executeTakeFirst();
         return result;
     });
 }
 exports.findTodo = findTodo;
-function updateTodo(id, body) {
+function updateTodo(slug, body) {
     return __awaiter(this, void 0, void 0, function* () {
         body.slug = (0, helpers_1.convertStringToSlugFormat)(body.title);
         const result = yield connect_1.default
             .updateTable('todo')
             .set(body)
-            .where('id', '=', id)
+            .where('slug', '=', slug)
             .returningAll()
             .executeTakeFirst();
         return result;
     });
 }
 exports.updateTodo = updateTodo;
-function deleteTodo(id) {
+function deleteTodo(slug) {
     return __awaiter(this, void 0, void 0, function* () {
         yield connect_1.default
             .deleteFrom('todo')
-            .where('id', '=', id)
+            .where('slug', '=', slug)
             .execute();
     });
 }

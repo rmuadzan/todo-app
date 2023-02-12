@@ -28,32 +28,32 @@ export async function createTodo(body: typeof TodoBody) {
     return result
 }
 
-export async function findTodo(id: number) {
+export async function findTodo(slug: string) {
   const result = await db
   .selectFrom('todo')
   .selectAll()
-  .where('id', '=', id)
+  .where('slug', '=', slug)
   .executeTakeFirst()
 
   return result
 }
 
-export async function updateTodo(id: number, body: typeof TodoBody) {
+export async function updateTodo(slug: string, body: typeof TodoBody) {
   body.slug = convertStringToSlugFormat(body.title!)
   
   const result = await db 
   .updateTable('todo')
   .set(body)
-  .where('id', '=', id)
+  .where('slug', '=', slug)
   .returningAll()
   .executeTakeFirst()
 
   return result
 }
 
-export async function deleteTodo(id: number) {
+export async function deleteTodo(slug: string) {
   await db
     .deleteFrom('todo')
-    .where('id', '=', id)
+    .where('slug', '=', slug)
     .execute()
 }

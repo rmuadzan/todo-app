@@ -1,7 +1,6 @@
 import { Type } from '@sinclair/typebox'
 
 export const TodoSchema = Type.Object({
-  id: Type.Number(),
   title: Type.String(),
   description: Type.String(),
   is_done: Type.Boolean(),
@@ -9,7 +8,7 @@ export const TodoSchema = Type.Object({
 })
 
 export const TodoParams = Type.Object({
-  id: Type.Number()
+  slug: Type.String()
 })
 
 export const TodoBody = Type.Object({
@@ -20,21 +19,11 @@ export const TodoBody = Type.Object({
 
 export const SingleTodoResponse = Type.Object({
   status: Type.String(),
-  data: Type.Object({
-    id: Type.Number(),
-    title: Type.String(),
-    description: Type.String(),
-    is_done: Type.Boolean()
-  })
+  data: TodoSchema
 })
 
 export const MultipleTodosResponse = Type.Object({
   status: Type.String(),
   result: Type.Number(),
-  data: Type.Array(Type.Object({
-    id: Type.Number(),
-    title: Type.String(),
-    description: Type.String(),
-    is_done: Type.Boolean()
-  }))
+  data: Type.Array(TodoSchema)
 })
