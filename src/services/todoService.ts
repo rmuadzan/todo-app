@@ -1,4 +1,3 @@
-import slugify from "slugify"
 import db from "../db/connect"
 import { TodoBody } from "../schema/todoSchema"
 import { convertStringToSlugFormat } from "../helpers"
@@ -52,8 +51,10 @@ export async function updateTodo(slug: string, body: typeof TodoBody) {
 }
 
 export async function deleteTodo(slug: string) {
-  await db
+  const result = await db
     .deleteFrom('todo')
     .where('slug', '=', slug)
-    .execute()
+    .executeTakeFirst()
+
+  return result
 }

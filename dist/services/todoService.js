@@ -68,10 +68,11 @@ function updateTodo(slug, body) {
 exports.updateTodo = updateTodo;
 function deleteTodo(slug) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield connect_1.default
+        const result = yield connect_1.default
             .deleteFrom('todo')
             .where('slug', '=', slug)
-            .execute();
+            .executeTakeFirst();
+        return result;
     });
 }
 exports.deleteTodo = deleteTodo;

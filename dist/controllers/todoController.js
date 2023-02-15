@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteSingleTodoHandler = exports.updateSingleTodoHandler = exports.getSingleTodoHandler = exports.craeteTodoHandler = exports.getAllTodosHandler = void 0;
 const todoService_1 = require("../services/todoService");
+const helpers_1 = require("../helpers");
 const getAllTodosHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield (0, todoService_1.findAllTodos)();
     reply
@@ -25,6 +26,9 @@ const getAllTodosHandler = (request, reply) => __awaiter(void 0, void 0, void 0,
 exports.getAllTodosHandler = getAllTodosHandler;
 const craeteTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield (0, todoService_1.createTodo)(request.body);
+    if (!result) {
+        throw new helpers_1.ApiError(404, "Failed to create Todo");
+    }
     reply
         .code(201)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -37,6 +41,9 @@ exports.craeteTodoHandler = craeteTodoHandler;
 const getSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     const slug = request.params.slug;
     const result = yield (0, todoService_1.findTodo)(slug);
+    if (!result) {
+        throw new helpers_1.ApiError(404, "Todo doesnt exist");
+    }
     reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -49,6 +56,9 @@ exports.getSingleTodoHandler = getSingleTodoHandler;
 const updateSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     const slug = request.params.slug;
     const result = yield (0, todoService_1.updateTodo)(slug, request.body);
+    if (!result) {
+        throw new helpers_1.ApiError(404, "Todo doesnt exist");
+    }
     reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -60,7 +70,10 @@ const updateSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, vo
 exports.updateSingleTodoHandler = updateSingleTodoHandler;
 const deleteSingleTodoHandler = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     const slug = request.params.slug;
-    (0, todoService_1.deleteTodo)(slug);
+    const result = yield (0, todoService_1.deleteTodo)(slug);
+    if (Number(result.numDeletedRows) === 0) {
+        console.log("OK");
+    }
     reply
         .code(204);
 });
