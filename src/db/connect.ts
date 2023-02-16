@@ -1,9 +1,11 @@
 import { Pool } from "pg"
 import { Kysely, PostgresDialect } from "kysely";
 import TodoModel from "../models/todoModel";
+import UserModel from "../models/userModel";
 
 interface Database {
   todo: TodoModel
+  person: UserModel
 }
 
 const db = new Kysely<Database>({

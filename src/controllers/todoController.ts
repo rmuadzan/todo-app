@@ -1,10 +1,16 @@
 import { FastifyReply, FastifyRequest } from "fastify"
 import { TodoBody, TodoParams } from "../schema/todoSchema"
 import { createTodo, deleteTodo, findAllTodos, findTodo, updateTodo } from "../services/todoService"
-import { ApiError } from "../helpers"
+
+import { ApiError } from "../utils"
+
 
 export const getAllTodosHandler = async (request: FastifyRequest, reply: FastifyReply) => {
-  const result = await findAllTodos()
+  const result = await findAllTodos(request.user.id)
+
+  if (!result) {
+    throw new ApiError(500, "Failed to get todos")
+  }
 
   reply 
     .code(200)
@@ -17,7 +23,11 @@ export const getAllTodosHandler = async (request: FastifyRequest, reply: Fastify
 }
 
 export const craeteTodoHandler = async (request: FastifyRequest<{Body: typeof TodoBody}>, reply: FastifyReply) => {
-  const result = await createTodo(request.body)
+  const result = await createTodo(request.user.id, request.body)
+
+  if (!result) {
+    throw new ApiError(500, "Failed to create todo")
+  }
 
   if (!result) {
     throw new ApiError(404, "Failed to create Todo")
@@ -35,7 +45,11 @@ export const craeteTodoHandler = async (request: FastifyRequest<{Body: typeof To
 export const getSingleTodoHandler = async (request: FastifyRequest<{Params: typeof TodoParams}>, reply: FastifyReply) => {
   const slug = request.params.slug
 
-  const result = await findTodo(slug)
+  const result = await findTodo(request.user.id, slug)
+
+  if (!result) {
+    throw new ApiError(404, "Todo Not Found")
+  }
 
   if (!result) {
     throw new ApiError(404, "Todo doesnt exist")
@@ -53,7 +67,11 @@ export const getSingleTodoHandler = async (request: FastifyRequest<{Params: type
 export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: typeof TodoBody, Params: typeof TodoParams}>, reply: FastifyReply) => {
   const slug = request.params.slug
 
-  const result = await updateTodo(slug, request.body)
+  const result = await updateTodo(request.user.id, slug, request.body)
+
+  if (!result) {
+    throw new ApiError(400, "Todo doesn't exist")
+  }
 
   if (!result) {
     throw new ApiError(404, "Todo doesnt exist")
@@ -71,9 +89,10 @@ export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: typ
 export const deleteSingleTodoHandler = async (request: FastifyRequest<{Params: typeof TodoParams}>, reply: FastifyReply) => {
   const slug = request.params.slug
 
-  const result = await deleteTodo(slug)
-  if (Number(result.numDeletedRows) === 0) {
-    throw new ApiError(404, "Todo doesnt exist")
+  const deletedRows = (await deleteTodo(request.user.id, slug)).numDeletedRows
+
+  if (Number(deletedRows) === 0) {
+    throw new ApiError(400, "Todo doesn't exist")
   }
 
   reply

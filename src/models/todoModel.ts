@@ -6,6 +6,7 @@ interface TodoModel {
   description: string
   is_done: boolean
   slug: string
+  person_id: string
 }
 
 export default TodoModel

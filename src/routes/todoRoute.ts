@@ -3,6 +3,14 @@ import { getAllTodosHandler, craeteTodoHandler, getSingleTodoHandler, updateSing
 import { MultipleTodosResponse, SingleTodoResponse, TodoBody, TodoParams } from "../schema/todoSchema";
 
 async function todoRoute(fastify: FastifyInstance) {
+  fastify.addHook("onRequest", async (request, reply) => {
+    try {
+      await request.jwtVerify()
+    } catch (err) {
+      reply.send(err)
+    }
+  })
+  
   fastify.get("/", {
     schema: {
       response: {
