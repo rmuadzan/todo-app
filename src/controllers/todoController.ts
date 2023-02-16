@@ -29,10 +29,6 @@ export const craeteTodoHandler = async (request: FastifyRequest<{Body: typeof To
     throw new ApiError(500, "Failed to create todo")
   }
 
-  if (!result) {
-    throw new ApiError(404, "Failed to create Todo")
-  }
-
   reply
     .code(201)
     .header('Content-Type', 'application/json; charset=utf-8')
@@ -51,10 +47,6 @@ export const getSingleTodoHandler = async (request: FastifyRequest<{Params: type
     throw new ApiError(404, "Todo Not Found")
   }
 
-  if (!result) {
-    throw new ApiError(404, "Todo doesnt exist")
-  }
-
   reply 
   .code(200)
   .header('Content-Type', 'application/json; charset=utf-8')
@@ -71,10 +63,6 @@ export const updateSingleTodoHandler = async (request: FastifyRequest<{Body: typ
 
   if (!result) {
     throw new ApiError(400, "Todo doesn't exist")
-  }
-
-  if (!result) {
-    throw new ApiError(404, "Todo doesnt exist")
   }
   
   reply
