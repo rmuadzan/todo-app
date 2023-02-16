@@ -55,9 +55,11 @@ export async function updateTodo(person_id: string, slug: string, body: typeof T
 }
 
 export async function deleteTodo(person_id: string, slug: string) {
-  await db
+  const result = await db
     .deleteFrom('todo')
     .where('person_id', '=', person_id)
     .where('slug', '=', slug)
-    .execute()
+    .executeTakeFirst()
+
+  return result
 }
