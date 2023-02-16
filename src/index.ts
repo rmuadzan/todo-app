@@ -9,12 +9,7 @@ import todoRoute from "./routes/todoRoute";
 
 declare module "@fastify/jwt" {
   interface FastifyJWT {
-    payload: { email: string, fullname: string } // payload type is used for signing and verifying
-    user: {
-      id: number,
-      name: string,
-      age: number
-      } // user type is return type of `request.user` object
+    payload: { email: string, fullname: string }
   }
 }
 

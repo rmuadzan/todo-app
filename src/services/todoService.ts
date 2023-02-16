@@ -1,4 +1,3 @@
-import slugify from "slugify"
 import db from "../db/connect"
 import { TodoBody } from "../schema/todoSchema"
 import { convertStringToSlugFormat } from "../helpers"
