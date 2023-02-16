@@ -9,7 +9,7 @@ import todoRoute from "./routes/todoRoute";
 
 declare module "@fastify/jwt" {
   interface FastifyJWT {
-    payload: { email: string, fullname: string }
+    payload: { id: string, email: string, fullname: string }
   }
 }
 

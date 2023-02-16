@@ -10,7 +10,7 @@ export async function createUser(email: string, password: string, fullname: stri
       password: hashedPassword,
       fullname
     })
-    .returning(['email', 'fullname'])
+    .returning(['id', 'email', 'fullname'])
     .executeTakeFirst()
 
     return result
@@ -19,7 +19,7 @@ export async function createUser(email: string, password: string, fullname: stri
 export async function getUserInfoByEmail(email: string) {
   const result = await db
     .selectFrom('person')
-    .select(['email', 'password', 'fullname'])
+    .select(['id', 'email', 'password', 'fullname'])
     .where('email', '=', email)
     .executeTakeFirst()
 

@@ -21,7 +21,7 @@ async function homeRoute(fastify: FastifyInstance) {
       throw new Error("Invalid password")
     }
 
-    reply.jwtSign({email: user.email, fullname: user.fullname}, function (err: any, token: string) {
+    reply.jwtSign({id: user.id, email: user.email, fullname: user.fullname}, function (err: any, token: string) {
       return reply.send(err || { 'accessToken': token })
     })
   })
@@ -34,7 +34,7 @@ async function homeRoute(fastify: FastifyInstance) {
       throw new Error("Failed to create user")
     }
 
-    reply.jwtSign({email, fullname}, function (err: any, token: string) {
+    reply.jwtSign({id: user.id, email, fullname}, function (err: any, token: string) {
       return reply.send(err || { 'accessToken': token })
     })
   })
