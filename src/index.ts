@@ -3,12 +3,27 @@ dotenv.config()
 
 import fastify from "fastify";
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
+import jwt from "@fastify/jwt"
 import homeRoute from "./routes/homeRoute";
 import todoRoute from "./routes/todoRoute";
 
+declare module "@fastify/jwt" {
+  interface FastifyJWT {
+    payload: { email: string, fullname: string } // payload type is used for signing and verifying
+    user: {
+      id: number,
+      name: string,
+      age: number
+      } // user type is return type of `request.user` object
+  }
+}
+
 const server = fastify({logger: true}).withTypeProvider<TypeBoxTypeProvider>()
 
-server.register(require('@fastify/formbody') )
+server.register(jwt, {
+  secret: 'THIS IS SUPER SECRET KEY'
+})
+server.register(require('@fastify/formbody'))
 
 server.register(homeRoute, {prefix: "/api/v1"})
 server.register(todoRoute, {prefix: "/api/v1/todos"})
