@@ -55,6 +55,7 @@ export async function updateTodo(person_id: string, slug: string, body: typeof T
 }
 
 export async function deleteTodo(person_id: string, slug: string) {
+
   const result = await db
     .deleteFrom('todo')
     .where('person_id', '=', person_id)

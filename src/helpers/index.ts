@@ -17,4 +17,3 @@ export async function comparePassword(candidatePassword: string, actualPassword:
   const match = await bcrypt.compare(candidatePassword, actualPassword)
 
   return match
-}
